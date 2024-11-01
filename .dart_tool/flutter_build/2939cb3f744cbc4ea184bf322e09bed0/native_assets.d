@@ -1,0 +1,1 @@
+ C:\\Users\\Daniel\\AndroidStudioProjects\\three_sixty_evaluations\\.dart_tool\\flutter_build\\2939cb3f744cbc4ea184bf322e09bed0\\native_assets.yaml: 
