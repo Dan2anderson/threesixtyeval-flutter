@@ -42,6 +42,9 @@ class BottomNavBarPage extends StatefulWidget {
 class _BottomNavigationState extends State<BottomNavBarPage> {
   int _index = 0;
 
+  @visibleForTesting
+  int get getIndex => _index;
+
   void _onNavTapped(int newIndex) {
     setState(() {
       _index = newIndex;

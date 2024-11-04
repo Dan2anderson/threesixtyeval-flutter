@@ -7,6 +7,6 @@ class LandingPageModel {
   LandingPageModel(
       {this.title = '360° Evaluations',
       this.subTitle = 'Helping each other grow!',
-      this.seeFeedback = 'See Fedback',
+      this.seeFeedback = 'See Feedback',
       this.giveFeedback = 'Give Feedback'});
 }
