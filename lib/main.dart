@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:three_sixty_evaluations/screens/give_feedback.dart';
 import 'package:three_sixty_evaluations/screens/landing_page.dart';
 import 'package:three_sixty_evaluations/screens/see_feedback.dart';
 import 'package:three_sixty_evaluations/three_sixty_theme.dart';
+import 'package:three_sixty_evaluations/utils/service_locator_util.dart';
 
 void main() {
+  ServiceLocatorUtil.initialize();
   runApp(const MyApp());
 }
 
@@ -53,8 +56,20 @@ class _BottomNavigationState extends State<BottomNavBarPage> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
     return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 0,
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: theme.primaryColor,
+          statusBarIconBrightness: Brightness.light,
+          statusBarBrightness: Brightness.dark,
+        ),
+      ),
       bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: theme.colorScheme.tertiary,
+        unselectedItemColor: theme.colorScheme.onPrimary,
+        backgroundColor: theme.primaryColor,
         items: navItems,
         currentIndex: _index,
         onTap: _onNavTapped,

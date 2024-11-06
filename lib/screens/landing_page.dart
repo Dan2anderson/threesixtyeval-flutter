@@ -28,9 +28,11 @@ class LandingPage extends StatelessWidget {
                   style: Theme.of(context).textTheme.headlineMedium,
                 ),
               ),
-              const Padding(
-                  padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
-                  child: Image(image: AssetImage('images/happyworkers.png'))),
+              const Expanded(
+                child: Padding(
+                    padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
+                    child: Image(image: AssetImage('images/happyworkers.png'))),
+              ),
             ],
           ),
         ),

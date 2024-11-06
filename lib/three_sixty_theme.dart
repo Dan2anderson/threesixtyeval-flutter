@@ -38,16 +38,16 @@ final ThemeData threeSixtyTheme = ThemeData(
   ),
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
     selectedIconTheme: IconThemeData(
-      color: Colors.medBlue,
+      color: Colors.lightBlue,
     ),
     unselectedIconTheme: IconThemeData(
-      color: Colors.lightBlue,
+      color: Colors.white,
     ),
     selectedLabelStyle: TextStyle(
-      color: Colors.medBlue,
+      color: Colors.white,
     ),
     unselectedLabelStyle: TextStyle(
-      color: Colors.lightBlue,
+      color: Colors.white,
     ),
   ),
 );
