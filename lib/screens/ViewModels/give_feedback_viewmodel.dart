@@ -9,15 +9,36 @@ class GiveFeedbackViewModel extends ChangeNotifier {
     required this.giveFeedbackRepository
   });
 
-  late GiveFeedbackModel _feedbackItems;
+  late GiveFeedbackModel _feedbackModel;
+  final List<GiveFeedbackItem> updateItems = [];
 
-  int get numberOfItems => _feedbackItems.giveFeedbackItems.length;
-  GiveFeedbackItem feedbackItemByIndex(int index) => _feedbackItems.giveFeedbackItems[index];
-  String get title => _feedbackItems.title??'';
+  int get numberOfItems => _feedbackModel.giveFeedbackItems.length;
+  GiveFeedbackItem feedbackItemByIndex(int index) => _feedbackModel.giveFeedbackItems[index];
+  String get title => _feedbackModel.title??'';
 
   void start(){
-    _feedbackItems = giveFeedbackRepository.fetchNeededFeedbackItems();
+    _feedbackModel = giveFeedbackRepository.fetchNeededFeedbackItems();
     notifyListeners();
+  }
+
+  void dismissFeedbackByIndex(int index) {
+    _feedbackModel.giveFeedbackItems[index].status = FeedbackStatus.dismissed;
+    _updateItem(index);
+    notifyListeners();
+  }
+
+  void feedbackStartedByIndex(int index){
+    //todo navigate to give feedback flow.
+    //todo somehow track when feedback is completed.
+    _feedbackModel.giveFeedbackItems[index].status = FeedbackStatus.inProgress;
+    _updateItem(index);
+    notifyListeners();
+  }
+
+  ///does not call notifyListeners().
+  void _updateItem(int index){
+    GiveFeedbackItem changedItem = _feedbackModel.giveFeedbackItems[index];
+    updateItems.add(changedItem);
   }
 
 }

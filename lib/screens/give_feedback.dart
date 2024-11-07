@@ -26,20 +26,38 @@ class GiveFeedbackScreen extends StatelessWidget {
                   style: Theme.of(context).textTheme.displayMedium,
                 ),
                 Expanded(
-                  child: ListView.separated(
+                  child: ListView.builder(
                     itemCount: viewModel.numberOfItems,
                     itemBuilder: (BuildContext context, int index) {
                       GiveFeedbackItem item =
                           viewModel.feedbackItemByIndex(index);
-                      return GiveFeedbackWidget(
-                        name: item.name,
-                        button1Text: item.doEvalText,
-                        button2Text: item.noEvalText,
-                      );
-                    },
-                    separatorBuilder: (BuildContext context, int index) {
-                      return const SizedBox(
-                        height: 20,
+                      double height = 135;
+                      if (item.status == FeedbackStatus.dismissed ||
+                          item.status == FeedbackStatus.completed) {
+                        height = 0;
+                      }
+                      return AnimatedContainer(
+                        // Use the properties stored in the State class.
+                        // width: _width,
+                        height: height,
+                        duration: const Duration(seconds: 1),
+                        // Provide an optional curve to make the animation feel smoother.
+                        curve: Curves.fastOutSlowIn,
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 20),
+                          child: GiveFeedbackWidget(
+                            id: item.id,
+                            name: item.name,
+                            button1Text: item.doEvalText,
+                            button2Text: item.noEvalText,
+                            button1Action: () {
+                              viewModel.feedbackStartedByIndex(index);
+                            },
+                            button2Action: () {
+                              viewModel.dismissFeedbackByIndex(index);
+                            },
+                          ),
+                        ),
                       );
                     },
                   ),

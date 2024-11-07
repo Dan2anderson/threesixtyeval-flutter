@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
 
 class GiveFeedbackWidget extends StatelessWidget {
+  final int id;
   final String name;
   final String button1Text;
   final String button2Text;
+  final VoidCallback button1Action;
+  final VoidCallback button2Action;
 
   const GiveFeedbackWidget({
     super.key,
+    required this.id,
     required this.name,
     required this.button1Text,
     required this.button2Text,
+    required this.button1Action,
+    required this.button2Action,
   });
 
   @override
@@ -49,7 +55,7 @@ class GiveFeedbackWidget extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: theme.primaryColor,
                   ),
-                  onPressed: () {},
+                  onPressed: button1Action,
                   child: Text(
                     button1Text,
                     style: theme.textTheme.labelMedium
@@ -64,7 +70,7 @@ class GiveFeedbackWidget extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: theme.colorScheme.error,
                   ),
-                  onPressed: () {},
+                  onPressed: button2Action,
                   child: Text(
                     button2Text,
                     style: theme.textTheme.labelMedium

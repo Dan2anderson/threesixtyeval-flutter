@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 final ThemeData threeSixtyTheme = ThemeData(
+  splashColor: Colors.orange.withOpacity(0.1),
   colorScheme: ColorScheme(
     brightness: Brightness.light,
     primary: Colors.darkBlue,
