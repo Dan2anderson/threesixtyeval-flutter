@@ -12,19 +12,27 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import 'package:three_sixty_evaluations/main.dart';
+import 'package:three_sixty_evaluations/screens/network/models/give_feedback_model.dart';
 import 'package:three_sixty_evaluations/screens/network/models/personal_feedback_item.dart';
+import 'package:three_sixty_evaluations/screens/network/repositories/give_feedback_repository.dart';
 import 'package:three_sixty_evaluations/screens/network/repositories/personal_feedback_repository.dart';
 
 import 'widget_test.mocks.dart';
 
-@GenerateNiceMocks([MockSpec<PersonalFeedbackRepository>(),])
+@GenerateNiceMocks([MockSpec<PersonalFeedbackRepository>(),MockSpec<GiveFeedbackRepository>(),])
 void main() {
+
+  const String testGiveTitle = 'test title';
   
   setUpAll(() {
-    PersonalFeedbackRepository mockRepository = MockPersonalFeedbackRepository();
+    PersonalFeedbackRepository mockPersonalFeedbackRepository = MockPersonalFeedbackRepository();
+    GiveFeedbackRepository mockGiveFeedbackRepository = MockGiveFeedbackRepository();
+
     GetIt serviceLocator = GetIt.instance;
-        serviceLocator.registerSingleton<PersonalFeedbackRepository>(mockRepository);
-    when(mockRepository.fetchPersonalFeedback()).thenReturn(PersonalFeedback(feedbackItems: []));
+        serviceLocator.registerSingleton<PersonalFeedbackRepository>(mockPersonalFeedbackRepository);
+        serviceLocator.registerSingleton<GiveFeedbackRepository>(mockGiveFeedbackRepository);
+    when(mockPersonalFeedbackRepository.fetchPersonalFeedback()).thenReturn(PersonalFeedback(feedbackItems: []));
+    when(mockGiveFeedbackRepository.fetchNeededFeedbackItems()).thenReturn(GiveFeedbackModel(title: testGiveTitle, giveFeedbackItems: []));
   });
   testWidgets('Home page shows first.', (WidgetTester tester) async {
     // Build our app and trigger a frame.
@@ -43,7 +51,7 @@ void main() {
     await tester.pump();
 
     expect(find.text('360° Evaluations'), findsNothing);
-    expect(find.text('GIVE FEEDBACK!'), findsNothing);
+    expect(find.text(testGiveTitle), findsNothing);
     expect(find.text('See how you are doing;'), findsOneWidget);
 
     // Tap the give feedback icon navigates to the see feedback page.
@@ -51,7 +59,7 @@ void main() {
     await tester.pump();
 
     expect(find.text('360° Evaluations'), findsNothing);
-    expect(find.text('GIVE FEEDBACK!'), findsOneWidget);
+    expect(find.text(testGiveTitle), findsOneWidget);
     expect(find.text('See how you are doing;'), findsNothing);
 
     // Tap the Home icon navigates to home page.
@@ -59,7 +67,7 @@ void main() {
     await tester.pump();
 
     expect(find.text('360° Evaluations'), findsOneWidget);
-    expect(find.text('GIVE FEEDBACK!'), findsNothing);
+    expect(find.text(testGiveTitle), findsNothing);
     expect(find.text('See how you are doing;'), findsNothing);
 
   });

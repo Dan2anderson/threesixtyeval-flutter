@@ -4,10 +4,14 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:three_sixty_evaluations/screens/network/models/give_feedback_model.dart'
+    as _i3;
 import 'package:three_sixty_evaluations/screens/network/models/personal_feedback_item.dart'
     as _i2;
+import 'package:three_sixty_evaluations/screens/network/repositories/give_feedback_repository.dart'
+    as _i5;
 import 'package:three_sixty_evaluations/screens/network/repositories/personal_feedback_repository.dart'
-    as _i3;
+    as _i4;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -33,11 +37,22 @@ class _FakePersonalFeedback_0 extends _i1.SmartFake
         );
 }
 
+class _FakeGiveFeedbackModel_1 extends _i1.SmartFake
+    implements _i3.GiveFeedbackModel {
+  _FakeGiveFeedbackModel_1(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [PersonalFeedbackRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockPersonalFeedbackRepository extends _i1.Mock
-    implements _i3.PersonalFeedbackRepository {
+    implements _i4.PersonalFeedbackRepository {
   @override
   _i2.PersonalFeedback fetchPersonalFeedback() => (super.noSuchMethod(
         Invocation.method(
@@ -59,4 +74,32 @@ class MockPersonalFeedbackRepository extends _i1.Mock
           ),
         ),
       ) as _i2.PersonalFeedback);
+}
+
+/// A class which mocks [GiveFeedbackRepository].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockGiveFeedbackRepository extends _i1.Mock
+    implements _i5.GiveFeedbackRepository {
+  @override
+  _i3.GiveFeedbackModel fetchNeededFeedbackItems() => (super.noSuchMethod(
+        Invocation.method(
+          #fetchNeededFeedbackItems,
+          [],
+        ),
+        returnValue: _FakeGiveFeedbackModel_1(
+          this,
+          Invocation.method(
+            #fetchNeededFeedbackItems,
+            [],
+          ),
+        ),
+        returnValueForMissingStub: _FakeGiveFeedbackModel_1(
+          this,
+          Invocation.method(
+            #fetchNeededFeedbackItems,
+            [],
+          ),
+        ),
+      ) as _i3.GiveFeedbackModel);
 }

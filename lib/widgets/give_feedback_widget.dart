@@ -25,39 +25,54 @@ class GiveFeedbackWidget extends StatelessWidget {
               style: BorderStyle.solid)),
       padding: const EdgeInsets.all(10),
       // color: theme.primaryColor,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Expanded(
-            flex: 6,
-            child: Text(
-              name,
-              softWrap: true,
-              style: theme.textTheme.labelMedium
-                  ?.copyWith(color: theme.colorScheme.onPrimary),
-            ),
-          ),
-          Expanded(
-            flex: 2,
-            child: ElevatedButton(
-              onPressed: () {},
+          Align(
+            alignment: Alignment.topLeft,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 15),
               child: Text(
-                button1Text,
+                name,
+                softWrap: true,
                 style: theme.textTheme.labelMedium
                     ?.copyWith(color: theme.colorScheme.onPrimary),
               ),
             ),
           ),
-          Expanded(
-            flex: 2,
-            child: ElevatedButton(
-              onPressed: () {},
-              child: Text(
-                button2Text,
-                style: theme.textTheme.labelMedium
-                    ?.copyWith(color: theme.colorScheme.onPrimary),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                flex: 5,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: theme.primaryColor,
+                  ),
+                  onPressed: () {},
+                  child: Text(
+                    button1Text,
+                    style: theme.textTheme.labelMedium
+                        ?.copyWith(color: theme.colorScheme.onPrimary),
+                  ),
+                ),
               ),
-            ),
+              const SizedBox(width: 30),
+              Expanded(
+                flex: 6,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: theme.colorScheme.error,
+                  ),
+                  onPressed: () {},
+                  child: Text(
+                    button2Text,
+                    style: theme.textTheme.labelMedium
+                        ?.copyWith(color: theme.colorScheme.onPrimary),
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),
