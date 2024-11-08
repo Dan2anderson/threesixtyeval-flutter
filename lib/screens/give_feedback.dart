@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:three_sixty_evaluations/screens/ViewModels/give_feedback_viewmodel.dart';
 import 'package:three_sixty_evaluations/screens/network/models/give_feedback_model.dart';
 import 'package:three_sixty_evaluations/screens/network/repositories/give_feedback_repository.dart';
-import 'package:three_sixty_evaluations/screens/network/repositories/personal_feedback_repository.dart';
 import 'package:three_sixty_evaluations/widgets/give_feedback_widget.dart';
 
 class GiveFeedbackScreen extends StatelessWidget {

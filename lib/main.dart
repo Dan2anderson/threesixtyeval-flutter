@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:three_sixty_evaluations/screens/give_feedback.dart';
 import 'package:three_sixty_evaluations/screens/landing_page.dart';
+import 'package:three_sixty_evaluations/screens/questionair_screen.dart';
 import 'package:three_sixty_evaluations/screens/see_feedback.dart';
 import 'package:three_sixty_evaluations/three_sixty_theme.dart';
 import 'package:three_sixty_evaluations/utils/service_locator_util.dart';
@@ -82,7 +83,8 @@ class _BottomNavigationState extends State<BottomNavBarPage> {
 }
 
 List<Widget> _navigationWidgets = [
-  const LandingPage(),
+  // const LandingPage(),
+  QuestionairScreen(),
   SeeFeedbackScreen(),
   GiveFeedbackScreen(),
 ];

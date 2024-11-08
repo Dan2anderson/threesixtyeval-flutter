@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:three_sixty_evaluations/screens/network/models/answer_model.dart';
 
-abstract class AnswerWidget extends StatelessWidget{
+abstract class AnswerWidget extends StatefulWidget{
 
-  late int _selectedAnswerCode;
-  int get selectedAnswerCode => _selectedAnswerCode;
+  final Answer answerModel;
 
-  void updateSelectedAnswer(int selectedAnswerCode) {
-    _selectedAnswerCode = selectedAnswerCode;
-  }
-
+  const AnswerWidget({super.key, required this.answerModel});
 }

@@ -9,9 +9,9 @@ void main() {
   const String b2Text = 'button text 2';
   testWidgets('Widget shows correct info', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    Widget testWidget = const MaterialApp(
+    Widget testWidget = MaterialApp(
       home: Scaffold(
-        body: GiveFeedbackWidget(name: feedbackText, button1Text: b1Text, button2Text: b2Text,
+        body: GiveFeedbackWidget(name: feedbackText, button1Text: b1Text, button2Text: b2Text, id: 1, button1Action: () {  }, button2Action: () {  },
             ),
       ),
     );
