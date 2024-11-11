@@ -21,6 +21,10 @@ class GiveFeedbackViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  void uploadChanges(){
+    giveFeedbackRepository.uploadChanges(updateItems);
+  }
+
   void dismissFeedbackByIndex(int index) {
     _feedbackModel.giveFeedbackItems[index].status = FeedbackStatus.dismissed;
     _updateItem(index);
@@ -28,9 +32,12 @@ class GiveFeedbackViewModel extends ChangeNotifier {
   }
 
   void feedbackStartedByIndex(int index){
-    //todo navigate to give feedback flow.
-    //todo somehow track when feedback is completed.
     _feedbackModel.giveFeedbackItems[index].status = FeedbackStatus.inProgress;
+    _updateItem(index);
+    notifyListeners();
+  }
+  void feedbackCompletedByIndex(int index){
+    _feedbackModel.giveFeedbackItems[index].status = FeedbackStatus.completed;
     _updateItem(index);
     notifyListeners();
   }
@@ -39,6 +46,7 @@ class GiveFeedbackViewModel extends ChangeNotifier {
   void _updateItem(int index){
     GiveFeedbackItem changedItem = _feedbackModel.giveFeedbackItems[index];
     updateItems.add(changedItem);
+    uploadChanges();
   }
 
 }

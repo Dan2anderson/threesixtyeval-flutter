@@ -9,63 +9,66 @@ class QuestionairViewModel extends ChangeNotifier {
   QuestionairViewModel({required this.questionairRepository});
 
   late QuestionairModel _qModel;
-  late List<Answer> _answerModel;
+  @visibleForTesting
+  late final List<Answer> answerModel;
+  late int personId;
 
-  void start() {
+  void start(int personId) {
+    this.personId = personId;
     _qModel = questionairRepository.fetchQuestionair();
+    answerModel = [];
     notifyListeners();
   }
 
+  void uploadAnswers(){
+    questionairRepository.uploadAnswers(answerModel);
+
+  }
+
+
   String buttonText() {
-    int currentIndex =_qModel.indexCurrentQuestion;
-    int lengthShiftedToIndex = _qModel.questions.length-1;
-    if(currentIndex == lengthShiftedToIndex) {
+    int currentIndex = _qModel.indexCurrentQuestion;
+    int lengthShiftedToIndex = _qModel.questions.length - 1;
+    if (currentIndex == lengthShiftedToIndex) {
       return 'Submit';
     } else {
       return 'Next';
     }
   }
 
-  Question getCurrentQuestion(){
+  Question getCurrentQuestion() {
     return _qModel.questions[_qModel.indexCurrentQuestion];
   }
+  ///updates Viewmodel data to the next question
+  ///if there are no more questions to answer returns false.
+  bool progressQuestion(){
+    bool areNoMoreQuestions = true;
+    if(_qModel.indexCurrentQuestion == (_qModel.questions.length - 1)){
+      _qModel.indexCurrentQuestion = 0;
+      areNoMoreQuestions = false;
+      uploadAnswers();
+    } else {
+      _qModel.indexCurrentQuestion++;
+    }
 
-  void updateCurrentQuestion() {
-    _qModel.indexCurrentQuestion++;
     notifyListeners();
+    return areNoMoreQuestions;
   }
 
   Answer getAnswerByCurrentQuestionIndex() {
     Question currentQ = _qModel.questions[_qModel.indexCurrentQuestion];
-    Iterable<Answer> matchingAnswers = _answerModel.where((element) => element.qId == currentQ.qId);
+    Iterable<Answer> matchingAnswers =
+        answerModel.where((element) => element.qId == currentQ.qId);
     Answer matchingA;
-    if(matchingAnswers.length >1){
-      throw const FormatException('More than one answer exists with the same qId. There should be only one.');
+    if (matchingAnswers.length > 1) {
+      throw const FormatException(
+          'More than one answer exists with the same qId. There should be only one.');
     }
-    if(matchingAnswers.isNotEmpty){
+    if (matchingAnswers.isNotEmpty) {
       matchingA = matchingAnswers.first;
     } else {
-      matchingA = Answer(answeredValue: 0, qId: currentQ.qId);
+      matchingA = Answer(answeredValue: 5, qId: currentQ.qId, personId: personId);
     }
     return matchingA;
   }
-
-  Answer getAnswerByQId(int id) {
-   Iterable<Answer> matchingAnswers = _answerModel.where((element) => element.qId == id);
-   Answer matchingA;
-   if(matchingAnswers.isNotEmpty){
-     matchingA = matchingAnswers.first;
-   } else {
-     Iterable<Question> matchingQuestions = _qModel.questions.where((element) => element.qId == id);
-     Question matchingQ;
-     if(matchingQuestions.isNotEmpty){
-       matchingQ = matchingQuestions.first;
-     } else {
-       throw const FormatException('a qId was passed to getAnswerByQId that does not exist in the question set.');
-     }
-       matchingA = Answer(qId: matchingQ.qId, answeredValue: 0);
-   }
-   return matchingA;
-  }
-
 }

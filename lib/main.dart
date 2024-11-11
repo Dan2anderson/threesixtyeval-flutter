@@ -83,8 +83,7 @@ class _BottomNavigationState extends State<BottomNavBarPage> {
 }
 
 List<Widget> _navigationWidgets = [
-  // const LandingPage(),
-  QuestionairScreen(),
+  const LandingPage(),
   SeeFeedbackScreen(),
   GiveFeedbackScreen(),
 ];

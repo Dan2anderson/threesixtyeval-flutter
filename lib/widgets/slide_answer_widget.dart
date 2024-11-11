@@ -12,7 +12,8 @@ class SlideAnswerWidget extends AnswerWidget {
 }
 
 class _SliderAnswerState extends State<SlideAnswerWidget> {
-  double _currentSliderValue = 5;
+  // double _currentSliderValue = 5;
+
 
   @override
   Widget build(BuildContext context) {
@@ -33,14 +34,13 @@ class _SliderAnswerState extends State<SlideAnswerWidget> {
           inactiveColor: theme.colorScheme.tertiary,
           activeColor: theme.colorScheme.tertiary,
           thumbColor: theme.colorScheme.secondary,
-          value: _currentSliderValue,
+          value: widget.answerModel.answeredValue.toDouble(),
           max: 10,
           divisions: 10,
-          label: _currentSliderValue.round().toString(),
+          label: widget.answerModel.answeredValue.toString(),
           onChanged: (double value) {
             setState(() {
               widget.answerModel.answeredValue = value.round().toInt();
-              _currentSliderValue = value;
             });
           },
         ),

@@ -6,14 +6,14 @@ class GiveFeedbackModel {
 }
 
 class GiveFeedbackItem {
-  final int id;
+  final int personId;
   final String name;
   final String doEvalText;
   final String noEvalText;
   FeedbackStatus status;
 
   GiveFeedbackItem(
-      {required this.id, required this.name, required this.doEvalText, required this.noEvalText, required this.status});
+      {required this.personId, required this.name, required this.doEvalText, required this.noEvalText, required this.status});
 }
 
 

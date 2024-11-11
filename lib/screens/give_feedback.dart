@@ -4,9 +4,12 @@ import 'package:provider/provider.dart';
 import 'package:three_sixty_evaluations/screens/ViewModels/give_feedback_viewmodel.dart';
 import 'package:three_sixty_evaluations/screens/network/models/give_feedback_model.dart';
 import 'package:three_sixty_evaluations/screens/network/repositories/give_feedback_repository.dart';
+import 'package:three_sixty_evaluations/screens/questionair_screen.dart';
 import 'package:three_sixty_evaluations/widgets/give_feedback_widget.dart';
 
 class GiveFeedbackScreen extends StatelessWidget {
+  const GiveFeedbackScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<GiveFeedbackViewModel>(
@@ -45,12 +48,20 @@ class GiveFeedbackScreen extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.only(bottom: 20),
                           child: GiveFeedbackWidget(
-                            id: item.id,
+                            id: item.personId,
                             name: item.name,
                             button1Text: item.doEvalText,
                             button2Text: item.noEvalText,
-                            button1Action: () {
+                            button1Action: () async {
                               viewModel.feedbackStartedByIndex(index);
+                              final result = await Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => QuestionairScreen(
+                                          feedbackItem: item)));
+                              if (result) {
+                                viewModel.feedbackCompletedByIndex(index);
+                              }
                             },
                             button2Action: () {
                               viewModel.dismissFeedbackByIndex(index);
