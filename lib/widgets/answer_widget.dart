@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:three_sixty_evaluations/screens/network/models/answer_model.dart';
 
-abstract class AnswerWidget extends StatefulWidget{
+abstract class AnswerWidget extends StatelessWidget{
 
   final Answer answerModel;
 

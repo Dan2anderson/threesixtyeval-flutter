@@ -10,14 +10,18 @@ void main() {
   setUpAll(() {
     viewModel = QuestionairViewModel(questionairRepository: mockRepository);
   });
-  test('QuestionairViewModel initializes the correct data on start() and progressQuestions functions correctly.', () async {
-    viewModel.start();
+  test(
+      'QuestionairViewModel initializes the correct data on start() and progressQuestions functions correctly.',
+      () async {
+    viewModel.start(1234);
 
     expect(viewModel.answerModel.length, 0);
-    expect(viewModel.getCurrentQuestion().qText, 'How good is the quality of {name}\'s work?');
+    expect(viewModel.getCurrentQuestion().qText,
+        'How good is the quality of {name}\'s work?');
     expect(viewModel.getCurrentQuestion().qId, 1);
-    bool hasMoreQuestions =viewModel.progressQuestion();
-    expect(viewModel.getCurrentQuestion().qText, 'How fast does {name} get his/her work done?');
+    bool hasMoreQuestions = viewModel.progressQuestion();
+    expect(viewModel.getCurrentQuestion().qText,
+        'How fast does {name} get his/her work done?');
     expect(viewModel.getCurrentQuestion().qId, 2);
     expect(hasMoreQuestions, true);
     viewModel.progressQuestion();
@@ -26,17 +30,18 @@ void main() {
     viewModel.progressQuestion();
     viewModel.progressQuestion();
     bool hasMoreQuestions2 = viewModel.progressQuestion();
-    expect(viewModel.getCurrentQuestion().qText, 'How often does {name} help you or others with your own job responsibilities?');
+    expect(viewModel.getCurrentQuestion().qText,
+        'How often does {name} help you or others with your own job responsibilities?');
     expect(viewModel.getCurrentQuestion().qId, 8);
     expect(hasMoreQuestions2, true);
     bool hasMoreQuestions3 = viewModel.progressQuestion();
-    expect(viewModel.getCurrentQuestion().qText, 'How good is the quality of {name}\'s work?');
+    expect(viewModel.getCurrentQuestion().qText,
+        'How good is the quality of {name}\'s work?');
     expect(viewModel.getCurrentQuestion().qId, 1);
     expect(hasMoreQuestions3, false);
-
   });
   test('QuestionairViewModel gets correct button text', () async {
-    viewModel.start();
+    viewModel.start(1234);
     final btext = viewModel.buttonText();
     expect(btext, 'Next');
     viewModel.progressQuestion();
@@ -51,8 +56,10 @@ void main() {
     final btext2 = viewModel.buttonText();
     expect(btext2, 'Submit');
   });
-  test('QuestionairViewModel getAnswerByCurrentQuestionIndex creates the correct answer', () async {
-    viewModel.start();
+  test(
+      'QuestionairViewModel getAnswerByCurrentQuestionIndex creates the correct answer',
+      () async {
+    viewModel.start(1234);
     final answer1 = viewModel.getAnswerByCurrentQuestionIndex();
     expect(answer1.qId, 1);
     expect(answer1.answeredValue, 5);
@@ -70,7 +77,9 @@ void main() {
     expect(answer3.qId, 8);
     expect(answer3.answeredValue, 5);
   });
-  test('QuestionairViewModel getAnswerByCurrentQuestionIndex gets the correct answer', () async {
+  test(
+      'QuestionairViewModel getAnswerByCurrentQuestionIndex gets the correct answer',
+      () async {
     viewModel.start(123);
     viewModel.answerModel.addAll(testAnswers);
     final answer1 = viewModel.getAnswerByCurrentQuestionIndex();
@@ -92,7 +101,7 @@ void main() {
   });
 }
 
-List<Answer> testAnswers  = [
+List<Answer> testAnswers = [
   Answer(answeredValue: 8, qId: 1, personId: 123),
   Answer(answeredValue: 2, qId: 2, personId: 123),
   Answer(answeredValue: 10, qId: 3, personId: 123),
@@ -103,6 +112,4 @@ List<Answer> testAnswers  = [
   Answer(answeredValue: 10, qId: 8, personId: 123),
 ];
 
-class MockQuestionairRepository extends QuestionairRepository {
-
-}
+class MockQuestionairRepository extends QuestionairRepository {}

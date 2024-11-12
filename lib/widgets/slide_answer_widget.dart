@@ -8,14 +8,6 @@ class SlideAnswerWidget extends AnswerWidget {
   const SlideAnswerWidget({super.key, required this.leftLabel, required this.rightLabel, required super.answerModel});
 
   @override
-  State<StatefulWidget> createState() => _SliderAnswerState();
-}
-
-class _SliderAnswerState extends State<SlideAnswerWidget> {
-  // double _currentSliderValue = 5;
-
-
-  @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
     return Column(
@@ -25,8 +17,8 @@ class _SliderAnswerState extends State<SlideAnswerWidget> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(widget.leftLabel),
-              Text(widget.rightLabel),
+              Text(leftLabel),
+              Text(rightLabel),
             ],
           ),
         ),
@@ -34,14 +26,14 @@ class _SliderAnswerState extends State<SlideAnswerWidget> {
           inactiveColor: theme.colorScheme.tertiary,
           activeColor: theme.colorScheme.tertiary,
           thumbColor: theme.colorScheme.secondary,
-          value: widget.answerModel.answeredValue.toDouble(),
+          value: answerModel.answeredValue.toDouble(),
           max: 10,
           divisions: 10,
-          label: widget.answerModel.answeredValue.toString(),
+          label: answerModel.answeredValue.toString(),
           onChanged: (double value) {
-            setState(() {
-              widget.answerModel.answeredValue = value.round().toInt();
-            });
+            // setState(() {
+              answerModel.answeredValue = value.round().toInt();
+            // });
           },
         ),
       ],

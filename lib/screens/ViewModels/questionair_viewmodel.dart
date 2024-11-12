@@ -10,21 +10,20 @@ class QuestionairViewModel extends ChangeNotifier {
 
   late QuestionairModel _qModel;
   @visibleForTesting
-  late final List<Answer> answerModel;
+  late List<Answer> answerModel;
   late int personId;
 
   void start(int personId) {
     this.personId = personId;
     _qModel = questionairRepository.fetchQuestionair();
+    _qModel.indexCurrentQuestion = 0;
     answerModel = [];
     notifyListeners();
   }
 
-  void uploadAnswers(){
+  void uploadAnswers() {
     questionairRepository.uploadAnswers(answerModel);
-
   }
-
 
   String buttonText() {
     int currentIndex = _qModel.indexCurrentQuestion;
@@ -39,11 +38,12 @@ class QuestionairViewModel extends ChangeNotifier {
   Question getCurrentQuestion() {
     return _qModel.questions[_qModel.indexCurrentQuestion];
   }
+
   ///updates Viewmodel data to the next question
   ///if there are no more questions to answer returns false.
-  bool progressQuestion(){
+  bool progressQuestion() {
     bool areNoMoreQuestions = true;
-    if(_qModel.indexCurrentQuestion == (_qModel.questions.length - 1)){
+    if (_qModel.indexCurrentQuestion == (_qModel.questions.length - 1)) {
       _qModel.indexCurrentQuestion = 0;
       areNoMoreQuestions = false;
       uploadAnswers();
@@ -67,7 +67,8 @@ class QuestionairViewModel extends ChangeNotifier {
     if (matchingAnswers.isNotEmpty) {
       matchingA = matchingAnswers.first;
     } else {
-      matchingA = Answer(answeredValue: 5, qId: currentQ.qId, personId: personId);
+      matchingA =
+          Answer(answeredValue: 5, qId: currentQ.qId, personId: personId);
     }
     return matchingA;
   }
